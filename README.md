@@ -12,12 +12,12 @@ Project initialized. Core features in progress.
 
 ## Setup
 
-Client:
-cd client
-npm install
-npm run dev
+Client:  
+cd client  
+npm install  
+npm run dev  
 
-Server:
-cd server
-npm install
-npm run dev
+Server:  
+cd server  
+npm install  
+npm run dev  
