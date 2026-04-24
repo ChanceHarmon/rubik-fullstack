@@ -96,6 +96,13 @@ function App() {
         Rotate Blue Counterclockwise
       </button>
 
+      <button onClick={() => handleMove('yellow', 'clockwise')}>
+        Rotate Yellow Clockwise
+      </button>
+      <button onClick={() => handleMove('yellow', 'counterclockwise')}>
+        Rotate Yellow Counterclockwise
+      </button>
+
       <button onClick={handleReset}>Reset Cube</button>
     </main>
   );
