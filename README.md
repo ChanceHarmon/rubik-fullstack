@@ -46,7 +46,7 @@ Backend:
 }
 ```
 
-## Setup
+## Running Locally
 
 Clone the repository, and then:  
 Client:  
@@ -58,3 +58,17 @@ Server:
 - cd server  
 - npm install  
 - npm run dev  
+
+## Roadmap
+
+- Persist cube state with Postgres (JSONB)
+- Improve UI layout and controls
+- Add scramble and move history
+- Optional: 3D visualization
+
+## Notes
+
+This project is a complete rebuild of an earlier version with a focus on:
+- cleaner architecture
+- reusable logic
+- modern full-stack practices
