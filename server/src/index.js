@@ -38,14 +38,23 @@ app.get('/api/cube', (request, response) => {
 
 
 app.post('/api/cube/move', (request, response) => {
-  const { face, direction } = request.body;
 
-  console.log('Move requested:', face, direction);
+  try {
+    const { face, direction } = request.body;
 
-  currentCube = applyMove(currentCube, face, direction);
+    currentCube = applyMove(currentCube, face, direction);
 
-  response.json(currentCube);
-})
+    response.json(currentCube);
+  } catch (error) {
+    console.error(error.message);
+
+    response.status(400).json({
+      error: error.message,
+    });
+  }
+
+});
+
 
 app.post('/api/cube/reset', (request, response) => {
   currentCube = createSolvedCube();

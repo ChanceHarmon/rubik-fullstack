@@ -130,15 +130,7 @@ export function applyMove(cube, face, direction) {
     return rotateGreen(cube, direction);
   }
 
-  const updatedCube = structuredClone(cube);
+  // If we get here, the move is not implemented
+  throw new Error(`Move not implemented: ${face} ${direction}`);
 
-  if (direction === 'clockwise') {
-    updatedCube[face] = rotateFaceClockwise(cube[face]);
-  }
-
-  if (direction === 'counterclockwise') {
-    updatedCube[face] = rotateFaceCounterClockwise(cube[face]);
-  }
-
-  return updatedCube;
 }

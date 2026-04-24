@@ -22,9 +22,17 @@ function App() {
       },
       body: JSON.stringify({ face, direction }),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Move failed');
+        }
+        return response.json();
+      })
       .then((data) => setCube(data))
-      .catch((err) => console.error('Move failed:', err));
+      .catch((error) => {
+        console.error(error);
+        alert('Move not implemented yet');
+      });
   }
 
   // Handle reset function
