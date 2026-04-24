@@ -6,9 +6,7 @@ import dotenv from 'dotenv';
 // Module imports
 import { createSolvedCube } from './lib/cube/cubeState.js';
 import { applyMove } from './lib/cube/moves.js';
-
-// Server variables
-let currentCube = createSolvedCube();
+import { getCube, saveCube, resetCube } from './lib/cube/cubeRepository.js';
 
 // Use dotenv variables
 dotenv.config();
@@ -24,27 +22,27 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
+
 // Routes
 
-// Initial route
-app.get('/api/health', (request, response) => {
-  response.json({ ok: true, message: 'Server is running' });
+// GET cube route
+app.get('/api/cube', async (request, response) => {
+  const cube = await getCube();
+  response.json(cube);
 });
 
-// Real routes
-app.get('/api/cube', (request, response) => {
-  response.json(currentCube);
-});
-
-
-app.post('/api/cube/move', (request, response) => {
-
+// POST cube move route
+app.post('/api/cube/move', async (request, response) => {
   try {
     const { face, direction } = request.body;
 
-    currentCube = applyMove(currentCube, face, direction);
+    const cube = await getCube();
 
-    response.json(currentCube);
+    const updatedCube = applyMove(cube, face, direction);
+
+    await saveCube(updatedCube);
+
+    response.json(updatedCube);
   } catch (error) {
     console.error(error.message);
 
@@ -52,13 +50,12 @@ app.post('/api/cube/move', (request, response) => {
       error: error.message,
     });
   }
-
 });
 
-
-app.post('/api/cube/reset', (request, response) => {
-  currentCube = createSolvedCube();
-  response.json(currentCube);
+// POST cube reset route
+app.post('/api/cube/reset', async (request, response) => {
+  const cube = await resetCube();
+  response.json(cube);
 });
 
 
