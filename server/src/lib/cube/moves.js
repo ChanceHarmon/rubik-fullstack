@@ -95,7 +95,7 @@ function rotateWhite(cube, direction) {
   return updatedCube;
 }
 
-// ROtate green function
+// Rotate green function
 function rotateGreen(cube, direction) {
   let updatedCube = structuredClone(cube);
 
@@ -119,6 +119,29 @@ function rotateGreen(cube, direction) {
   return updatedCube;
 }
 
+// Rotate red function
+function rotateRed(cube, direction) {
+  let updatedCube = structuredClone(cube);
+
+  if (direction === 'clockwise') {
+    updatedCube.red = rotateFaceClockwise(cube.red);
+  }
+
+  if (direction === 'counterclockwise') {
+    updatedCube.red = rotateFaceCounterClockwise(cube.red);
+  }
+
+  const faceConfigs = [
+    { face: 'white', indices: [2, 5, 8] },
+    { face: 'blue', indices: [6, 3, 0] },
+    { face: 'yellow', indices: [2, 5, 8] },
+    { face: 'green', indices: [2, 5, 8] },
+  ];
+
+  updatedCube = cycleEdges(updatedCube, faceConfigs, direction);
+
+  return updatedCube;
+}
 
 // Apply move function
 export function applyMove(cube, face, direction) {
@@ -128,6 +151,9 @@ export function applyMove(cube, face, direction) {
   }
   if (face === 'green') {
     return rotateGreen(cube, direction);
+  }
+  if (face === 'red') {
+    return rotateRed(cube, direction);
   }
 
   // If we get here, the move is not implemented

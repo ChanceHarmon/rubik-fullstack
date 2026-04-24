@@ -73,6 +73,13 @@ function App() {
       <button onClick={() => handleMove('green', 'counterclockwise')}>
         Rotate Green Counterclockwise
       </button>
+      <button onClick={() => handleMove('red', 'clockwise')}>
+        Rotate Red Clockwise
+      </button>
+
+      <button onClick={() => handleMove('red', 'counterclockwise')}>
+        Rotate Red Counterclockwise
+      </button>
 
       <button onClick={handleReset}>Reset Cube</button>
     </main>
