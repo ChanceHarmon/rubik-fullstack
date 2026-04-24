@@ -1,0 +1,48 @@
+.cube-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.cube-face {
+  display: grid;
+  grid-template-columns: repeat(3, 48px);
+  grid-template-rows: repeat(3, 48px);
+  gap: 4px;
+}
+
+.sticker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #222;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.sticker.w {
+  background: white;
+}
+
+.sticker.y {
+  background: yellow;
+}
+
+.sticker.g {
+  background: green;
+  color: white;
+}
+
+.sticker.b {
+  background: blue;
+  color: white;
+}
+
+.sticker.r {
+  background: red;
+  color: white;
+}
+
+.sticker.o {
+  background: orange;
+}

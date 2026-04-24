@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import CubeFace from './components/CubeFace';
 
 function App() {
   const [cube, setCube] = useState(null);
@@ -17,7 +18,15 @@ function App() {
   return (
     <main>
       <h1>Rubik Fullstack</h1>
-      <pre>{JSON.stringify(cube, null, 2)}</pre>
+      <div className="cube-layout">
+        {Object.entries(cube).map(([faceName, stickers]) => (
+          <CubeFace
+            key={faceName}
+            faceName={faceName}
+            stickers={stickers}
+          />
+        ))}
+      </div>
     </main>
   );
 }
