@@ -5,6 +5,10 @@ import dotenv from 'dotenv';
 
 // Module imports
 import { createSolvedCube } from './lib/cube/cubeState.js';
+import { applyMove } from './lib/cube/moves.js';
+
+// Server variables
+let currentCube = createSolvedCube();
 
 // Use dotenv variables
 dotenv.config();
@@ -23,14 +27,29 @@ app.use(express.json());
 // Routes
 
 // Initial route
-app.get('/api/health', (req, res) => {
-  res.json({ ok: true, message: 'Server is running' });
+app.get('/api/health', (request, response) => {
+  response.json({ ok: true, message: 'Server is running' });
 });
 
 // Real routes
-app.get('/api/cube', (req, res) => {
-  const cube = createSolvedCube();
-  res.json(cube);
+app.get('/api/cube', (request, response) => {
+  response.json(currentCube);
+});
+
+
+app.post('/api/cube/move', (request, response) => {
+  const { face, direction } = request.body;
+
+  console.log('Move requested:', face, direction);
+
+  currentCube = applyMove(currentCube, face, direction);
+
+  response.json(currentCube);
+})
+
+app.post('/api/cube/reset', (request, response) => {
+  currentCube = createSolvedCube();
+  response.json(currentCube);
 });
 
 
