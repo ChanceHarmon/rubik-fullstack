@@ -53,8 +53,19 @@ function App() {
           />
         ))}
       </div>
-      <button onClick={() => handleMove('white', 'clockwise')}>Rotate White Clockwise</button>
-      <button onClick={() => handleMove('white', 'counterclockwise')}>Rotate White Counterclockwise</button>
+      <button onClick={() => handleMove('white', 'clockwise')}>
+        Rotate White Clockwise
+      </button>
+      <button onClick={() => handleMove('white', 'counterclockwise')}>
+        Rotate White Counterclockwise
+      </button>
+      <button onClick={() => handleMove('green', 'clockwise')}>
+        Rotate Green Clockwise
+      </button>
+      <button onClick={() => handleMove('green', 'counterclockwise')}>
+        Rotate Green Counterclockwise
+      </button>
+
       <button onClick={handleReset}>Reset Cube</button>
     </main>
   );
