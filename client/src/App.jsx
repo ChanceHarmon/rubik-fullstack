@@ -13,16 +13,14 @@ function App() {
   }, []);
 
   // Handle move function
-  function handleMove() {
+  function handleMove(face, direction) {
+    console.log(face, direction)
     fetch('http://localhost:3001/api/cube/move', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        face: 'white',
-        direction: 'clockwise',
-      }),
+      body: JSON.stringify({ face, direction }),
     })
       .then((response) => response.json())
       .then((data) => setCube(data))
@@ -55,7 +53,8 @@ function App() {
           />
         ))}
       </div>
-      <button onClick={handleMove}>Rotate White Clockwise</button>
+      <button onClick={() => handleMove('white', 'clockwise')}>Rotate White Clockwise</button>
+      <button onClick={() => handleMove('white', 'counterclockwise')}>Rotate White Counterclockwise</button>
       <button onClick={handleReset}>Reset Cube</button>
     </main>
   );
