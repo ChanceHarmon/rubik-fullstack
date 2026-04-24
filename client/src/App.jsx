@@ -67,18 +67,33 @@ function App() {
       <button onClick={() => handleMove('white', 'counterclockwise')}>
         Rotate White Counterclockwise
       </button>
+
       <button onClick={() => handleMove('green', 'clockwise')}>
         Rotate Green Clockwise
       </button>
       <button onClick={() => handleMove('green', 'counterclockwise')}>
         Rotate Green Counterclockwise
       </button>
+
       <button onClick={() => handleMove('red', 'clockwise')}>
         Rotate Red Clockwise
       </button>
-
       <button onClick={() => handleMove('red', 'counterclockwise')}>
         Rotate Red Counterclockwise
+      </button>
+
+      <button onClick={() => handleMove('orange', 'clockwise')}>
+        Rotate Orange Clockwise
+      </button>
+      <button onClick={() => handleMove('orange', 'counterclockwise')}>
+        Rotate Orange Counterclockwise
+      </button>
+
+      <button onClick={() => handleMove('blue', 'clockwise')}>
+        Rotate Blue Clockwise
+      </button>
+      <button onClick={() => handleMove('blue', 'counterclockwise')}>
+        Rotate Blue Counterclockwise
       </button>
 
       <button onClick={handleReset}>Reset Cube</button>

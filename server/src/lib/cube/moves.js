@@ -143,6 +143,55 @@ function rotateRed(cube, direction) {
   return updatedCube;
 }
 
+// Rotate orange function
+function rotateOrange(cube, direction) {
+  let updatedCube = structuredClone(cube);
+
+  if (direction === 'clockwise') {
+    updatedCube.orange = rotateFaceClockwise(cube.orange);
+  }
+
+  if (direction === 'counterclockwise') {
+    updatedCube.orange = rotateFaceCounterClockwise(cube.orange);
+  }
+
+  const faceConfigs = [
+    { face: 'white', indices: [0, 3, 6] },
+    { face: 'green', indices: [0, 3, 6] },
+    { face: 'yellow', indices: [0, 3, 6] },
+    { face: 'blue', indices: [8, 5, 2] },
+  ];
+
+  updatedCube = cycleEdges(updatedCube, faceConfigs, direction);
+
+  return updatedCube;
+}
+
+// Rotate blue function
+function rotateBlue(cube, direction) {
+  let updatedCube = structuredClone(cube);
+
+  if (direction === 'clockwise') {
+    updatedCube.blue = rotateFaceClockwise(cube.blue);
+  }
+
+  if (direction === 'counterclockwise') {
+    updatedCube.blue = rotateFaceCounterClockwise(cube.blue);
+  }
+
+  const faceConfigs = [
+    { face: 'white', indices: [2, 1, 0] },
+    { face: 'orange', indices: [0, 3, 6] },
+    { face: 'yellow', indices: [6, 7, 8] },
+    { face: 'red', indices: [8, 5, 2] },
+  ];
+
+  updatedCube = cycleEdges(updatedCube, faceConfigs, direction);
+
+  return updatedCube;
+}
+
+
 // Apply move function
 export function applyMove(cube, face, direction) {
 
@@ -154,6 +203,12 @@ export function applyMove(cube, face, direction) {
   }
   if (face === 'red') {
     return rotateRed(cube, direction);
+  }
+  if (face === 'orange') {
+    return rotateOrange(cube, direction);
+  }
+  if (face === 'blue') {
+    return rotateBlue(cube, direction);
   }
 
   // If we get here, the move is not implemented
