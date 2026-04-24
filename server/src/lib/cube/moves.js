@@ -16,27 +16,81 @@ function rotateFaceCounterClockwise(stickers) {
   ];
 }
 
-// Rotate white clockwise function
-function rotateWhiteClockwise(cube) {
+// Cycle edges function (helper)
+function cycleEdges(cube, faces, direction) {
+  // Create a deep copy so we don't mutate the original cube
   const updatedCube = structuredClone(cube);
 
-  updatedCube.white = rotateFaceClockwise(cube.white);
+  // Save the first face's top row (indexes 0–2)
+  // This is used later to complete the cycle
+  const temp = cube[faces[0]].slice(0, 3);
 
-  updatedCube.orange[0] = cube.green[0];
-  updatedCube.orange[1] = cube.green[1];
-  updatedCube.orange[2] = cube.green[2];
+  // CLOCKWISE ROTATION (based on physical cube orientation)
+  if (direction === 'clockwise') {
+    // Move each face's top row to the next face in reverse order
+    // Example with ['green', 'orange', 'blue', 'red']:
+    // red    <- blue
+    // blue   <- orange
+    // orange <- green
+    for (let i = faces.length - 1; i > 0; i--) {
+      updatedCube[faces[i]].splice(
+        0,                      // start at index 0 (top row)
+        3,                      // replace 3 elements
+        ...cube[faces[i - 1]].slice(0, 3) // previous face's top row
+      );
+    }
 
-  updatedCube.blue[0] = cube.orange[0];
-  updatedCube.blue[1] = cube.orange[1];
-  updatedCube.blue[2] = cube.orange[2];
+    // Complete the cycle:
+    // first face gets the original last face's row
+    // green <- original red
+    updatedCube[faces[0]].splice(
+      0,
+      3,
+      ...cube[faces[faces.length - 1]].slice(0, 3)
+    );
+  }
 
-  updatedCube.red[0] = cube.blue[0];
-  updatedCube.red[1] = cube.blue[1];
-  updatedCube.red[2] = cube.blue[2];
+  // COUNTERCLOCKWISE ROTATION
+  if (direction === 'counterclockwise') {
+    // Move each face's top row to the next face in forward order
+    // green  <- orange
+    // orange <- blue
+    // blue   <- red
+    for (let i = 0; i < faces.length - 1; i++) {
+      updatedCube[faces[i]].splice(
+        0,
+        3,
+        ...cube[faces[i + 1]].slice(0, 3) // next face's top row
+      );
+    }
 
-  updatedCube.green[0] = cube.red[0];
-  updatedCube.green[1] = cube.red[1];
-  updatedCube.green[2] = cube.red[2];
+    // Complete the cycle:
+    // last face gets the original first face's row
+    // red <- original green
+    updatedCube[faces[faces.length - 1]].splice(0, 3, ...temp);
+  }
+
+  // Return the updated cube with rotated edge rows
+  return updatedCube;
+}
+
+
+// Rotate white clockwise function
+function rotateWhite(cube, direction) {
+  console.log(direction)
+  let updatedCube = structuredClone(cube);
+
+  if (direction === 'clockwise') {
+    updatedCube.white = rotateFaceClockwise(cube.white);
+  }
+
+  if (direction === 'counterclockwise') {
+    updatedCube.white = rotateFaceCounterClockwise(cube.white);
+  }
+
+  const sideFaces = ['green', 'orange', 'blue', 'red'];
+
+  updatedCube = cycleEdges(updatedCube, sideFaces, direction);
 
   return updatedCube;
 }
@@ -69,12 +123,8 @@ function rotateWhiteCounterClockwise(cube) {
 // Apply move function
 export function applyMove(cube, face, direction) {
 
-  if (face === 'white' && direction === 'clockwise') {
-    return rotateWhiteClockwise(cube);
-  }
-
-  if (face === 'white' && direction === 'counterclockwise') {
-    return rotateWhiteCounterClockwise(cube);
+  if (face === 'white') {
+    return rotateWhite(cube, direction);
   }
 
   const updatedCube = structuredClone(cube);
