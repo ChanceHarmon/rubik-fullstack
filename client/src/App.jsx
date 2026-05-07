@@ -45,6 +45,16 @@ function App() {
       .catch((error) => console.error('Reset failed:', error));
   }
 
+  // Handle scramble function
+  function handleScramble() {
+    fetch('http://localhost:3001/api/cube/scramble', {
+      method: 'POST',
+    })
+      .then((response) => response.json())
+      .then((data) => setCube(data.cube))
+      .catch((error) => console.error('Scramble failed:', error));
+  }
+
   if (!cube) {
     return <p>Loading cube...</p>;
   }
@@ -104,6 +114,7 @@ function App() {
       </button>
 
       <button onClick={handleReset}>Reset Cube</button>
+      <button onClick={handleScramble}>Scramble Cube</button>
     </main>
   );
 }
