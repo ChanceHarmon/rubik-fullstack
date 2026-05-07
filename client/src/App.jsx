@@ -55,6 +55,17 @@ function App() {
       .catch((error) => console.error('Scramble failed:', error));
   }
 
+  // Handle undo function
+  function handleUndo() {
+    fetch('http://localhost:3001/api/cube/undo', {
+      method: 'POST',
+    })
+      .then((response) => response.json())
+      .then((data) => setCube(data))
+      .catch((error) => console.error('Undo failed:', error));
+  }
+
+
   if (!cube) {
     return <p>Loading cube...</p>;
   }
@@ -115,6 +126,7 @@ function App() {
 
       <button onClick={handleReset}>Reset Cube</button>
       <button onClick={handleScramble}>Scramble Cube</button>
+      <button onClick={handleUndo}>Undo last move</button>
     </main>
   );
 }

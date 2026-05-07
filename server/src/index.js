@@ -5,8 +5,8 @@ import dotenv from 'dotenv';
 
 // Module imports
 import { createSolvedCube } from './lib/cube/cubeState.js';
-import { applyMove } from './lib/cube/moves.js';
-import { getCube, saveCube, resetCube, saveMove, getMoveHistory } from './lib/cube/cubeRepository.js';
+import { applyMove, getInverseDirection } from './lib/cube/moves.js';
+import { getCube, saveCube, resetCube, saveMove, getMoveHistory, getLastMove, deleteMove } from './lib/cube/cubeRepository.js';
 import { generateScramble, applyScramble } from './lib/cube/scramble.js';
 
 // Use dotenv variables
@@ -92,9 +92,45 @@ app.post('/api/cube/scramble', async (request, response) => {
 app.get('/api/cube/history', async (request, response) => {
   try {
     const history = await getMoveHistory();
-    console.log(history);
 
     response.json(history);
+  } catch (error) {
+    console.error(error.message);
+
+    response.status(400).json({
+      error: error.message,
+    });
+  }
+});
+
+
+// POST undo move route
+app.post('/api/cube/undo', async (request, response) => {
+  try {
+    const cube = await getCube();
+
+    const lastMove = await getLastMove();
+
+    if (!lastMove) {
+      return response.status(400).json({
+        error: 'No moves to undo',
+      });
+    }
+
+    const inverseDirection = getInverseDirection(lastMove.direction);
+
+    const updatedCube = applyMove(
+      cube,
+      lastMove.face,
+      inverseDirection
+    );
+
+    await saveCube(updatedCube);
+
+    await deleteMove(lastMove.id);
+
+    response.json(updatedCube);
+
   } catch (error) {
     console.error(error.message);
 

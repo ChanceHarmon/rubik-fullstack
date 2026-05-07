@@ -75,3 +75,27 @@ export async function getMoveHistory() {
   );
   return result.rows;
 }
+
+export async function getLastMove() {
+  const result = await pool.query(
+    `
+    SELECT id, face, direction, move_type, created_at
+    FROM moves
+    WHERE cube_id = $1
+    ORDER BY created_at DESC, id DESC
+    LIMIT 1
+    `,
+    [CUBE_ID]
+  );
+  return result.rows[0];
+}
+
+export async function deleteMove(moveId) {
+  await pool.query(
+    `
+    DELETE FROM moves
+    WHERE id = $1
+    `,
+    [moveId]
+  );
+}

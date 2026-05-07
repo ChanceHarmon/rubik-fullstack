@@ -15,7 +15,7 @@ function getColor(value) {
 }
 
 function CubeFace({ faceName, stickers }) {
-  console.log(faceName, stickers)
+  // console.log(faceName, stickers)
   return (
     <section>
       <h2>{faceName}</h2>

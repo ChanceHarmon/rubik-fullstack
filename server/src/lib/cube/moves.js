@@ -241,3 +241,20 @@ export function applyMove(cube, face, direction) {
   throw new Error(`Move not implemented: ${face} ${direction}`);
 
 }
+
+
+// Get inverse direction function
+const inverseMap = {
+  clockwise: 'counterclockwise',
+  counterclockwise: 'clockwise',
+};
+
+export function getInverseDirection(direction) {
+  const inverse = inverseMap[direction];
+
+  if (!inverse) {
+    throw new Error(`Invalid direction: ${direction}`);
+  }
+
+  return inverse;
+}
