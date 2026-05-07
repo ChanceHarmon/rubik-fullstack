@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 // Module imports
 import { createSolvedCube } from './lib/cube/cubeState.js';
 import { applyMove, getInverseDirection } from './lib/cube/moves.js';
-import { getCube, saveCube, resetCube, saveMove, getMoveHistory, getLastMove, deleteMove } from './lib/cube/cubeRepository.js';
+import { getCube, saveCube, resetCube, saveMove, getMoveHistory, getLastMove, deleteMove, clearMoveHistory, saveMoves } from './lib/cube/cubeRepository.js';
 import { generateScramble, applyScramble } from './lib/cube/scramble.js';
 
 // Use dotenv variables
@@ -58,8 +58,19 @@ app.post('/api/cube/move', async (request, response) => {
 
 // POST cube reset route
 app.post('/api/cube/reset', async (request, response) => {
-  const cube = await resetCube();
-  response.json(cube);
+  try {
+    const cube = await resetCube();
+
+    await clearMoveHistory();
+
+    response.json(cube);
+  } catch (error) {
+    console.error(error.message);
+
+    response.status(400).json({
+      error: error.message,
+    });
+  }
 });
 
 
@@ -73,6 +84,8 @@ app.post('/api/cube/scramble', async (request, response) => {
     const scrambledCube = applyScramble(cube, scramble);
 
     await saveCube(scrambledCube);
+    await clearMoveHistory();
+    await saveMoves(scramble, 'scramble');
 
     response.json({
       cube: scrambledCube,

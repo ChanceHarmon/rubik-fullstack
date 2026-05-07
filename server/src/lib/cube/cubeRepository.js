@@ -63,6 +63,12 @@ export async function saveMove(face, direction, moveType = 'manual') {
   );
 }
 
+export async function saveMoves(moves, moveType = 'manual') {
+  for (const move of moves) {
+    await saveMove(move.face, move.direction, moveType)
+  }
+}
+
 export async function getMoveHistory() {
   const result = await pool.query(
     `
@@ -99,3 +105,14 @@ export async function deleteMove(moveId) {
     [moveId]
   );
 }
+
+export async function clearMoveHistory() {
+  await pool.query(
+    `
+    DELETE FROM moves
+    WHERE cube_id = $1
+    `,
+    [CUBE_ID]
+  );
+}
+
