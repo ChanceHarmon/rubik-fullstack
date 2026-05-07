@@ -53,3 +53,25 @@ export async function resetCube() {
 
   return solvedCube;
 }
+
+export async function saveMove(face, direction, moveType = 'manual') {
+  await pool.query(
+    `INSERT INTO moves (cube_id, face, direction, move_type)
+    VALUES ($1, $2, $3, $4)
+    `,
+    [CUBE_ID, face, direction, moveType]
+  );
+}
+
+export async function getMoveHistory() {
+  const result = await pool.query(
+    `
+    SELECT id, face, direction, move_type, created_at
+    FROM moves
+    WHERE cube_id = $1
+    ORDER BY created_at ASC, id ASC
+    `,
+    [CUBE_ID]
+  );
+  return result.rows;
+}
