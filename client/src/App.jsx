@@ -14,7 +14,6 @@ function App() {
 
   // Handle move function
   function handleMove(face, direction) {
-    console.log(face, direction)
     fetch('http://localhost:3001/api/cube/move', {
       method: 'POST',
       headers: {
