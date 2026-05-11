@@ -7,17 +7,28 @@
 .cube-face {
   display: grid;
   grid-template-columns: repeat(3, 48px);
-  grid-template-rows: repeat(3, 48px);
   gap: 4px;
+
+  background: #111827;
+  padding: 0.5rem;
+  border-radius: 10px;
 }
 
 .sticker {
+  width: 48px;
+  height: 48px;
+
+  border-radius: 6px;
+  border: 1px solid #111827;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #222;
+
+  font-size: 0.7rem;
   font-weight: bold;
-  text-transform: uppercase;
+
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .sticker.w {

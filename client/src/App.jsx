@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
-import CubeFace from './components/CubeFace';
+import './App.css';
+import CubeDisplay from './components/CubeDisplay';
+import MoveControls from './components/MoveControls';
+import CubeActions from './components/CubeActions';
+import MoveHistory from './components/MoveHistory';
 
 
 function App() {
@@ -93,77 +97,25 @@ function App() {
   }
 
   return (
-    <main>
+    <main className="app">
       <h1>Rubik Fullstack</h1>
-      <div className="cube-layout">
-        {Object.entries(cube).map(([faceName, stickers]) => (
-          <CubeFace
-            key={faceName}
-            faceName={faceName}
-            stickers={stickers}
-          />
-        ))}
-      </div>
-      <button onClick={() => handleMove('white', 'clockwise')}>
-        Rotate White Clockwise
-      </button>
-      <button onClick={() => handleMove('white', 'counterclockwise')}>
-        Rotate White Counterclockwise
-      </button>
 
-      <button onClick={() => handleMove('green', 'clockwise')}>
-        Rotate Green Clockwise
-      </button>
-      <button onClick={() => handleMove('green', 'counterclockwise')}>
-        Rotate Green Counterclockwise
-      </button>
+      <section className="top-panel">
+        <CubeDisplay cube={cube} />
+      </section>
 
-      <button onClick={() => handleMove('red', 'clockwise')}>
-        Rotate Red Clockwise
-      </button>
-      <button onClick={() => handleMove('red', 'counterclockwise')}>
-        Rotate Red Counterclockwise
-      </button>
+      <section className="controls-panel">
+        <MoveControls onMove={handleMove} />
 
-      <button onClick={() => handleMove('orange', 'clockwise')}>
-        Rotate Orange Clockwise
-      </button>
-      <button onClick={() => handleMove('orange', 'counterclockwise')}>
-        Rotate Orange Counterclockwise
-      </button>
+        <CubeActions
+          onReset={handleReset}
+          onScramble={handleScramble}
+          onUndo={handleUndo}
+        />
+      </section>
 
-      <button onClick={() => handleMove('blue', 'clockwise')}>
-        Rotate Blue Clockwise
-      </button>
-      <button onClick={() => handleMove('blue', 'counterclockwise')}>
-        Rotate Blue Counterclockwise
-      </button>
-
-      <button onClick={() => handleMove('yellow', 'clockwise')}>
-        Rotate Yellow Clockwise
-      </button>
-      <button onClick={() => handleMove('yellow', 'counterclockwise')}>
-        Rotate Yellow Counterclockwise
-      </button>
-
-      <button onClick={handleReset}>Reset Cube</button>
-      <button onClick={handleScramble}>Scramble Cube</button>
-      <button onClick={handleUndo}>Undo last move</button>
-
-      <section>
-        <h2>Move History</h2>
-
-        {history.length === 0 ? (
-          <p>No moves yet.</p>
-        ) : (
-          <ol>
-            {history.map((move) => (
-              <li key={move.id}>
-                {move.face} {move.direction} ({move.move_type})
-              </li>
-            ))}
-          </ol>
-        )}
+      <section className="history-panel">
+        <MoveHistory history={history} />
       </section>
     </main>
   );
