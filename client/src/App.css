@@ -8,24 +8,33 @@
   margin-bottom: 2rem;
 }
 
-.top-panel,
-.controls-panel,
-.history-panel {
+.dashboard {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.cube-panel,
+.sidebar-panel {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 1.5rem;
-  margin-top: 1.5rem;
 }
 
-.controls-panel {
+.cube-panel {
   display: flex;
-  gap: 2rem;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.controls-panel section {
+.sidebar-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.sidebar-panel section {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -41,4 +50,33 @@ button {
 
 button:hover {
   background: #374151;
+}
+
+.move-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.move-row span {
+  min-width: 5rem;
+  text-transform: capitalize;
+  color: var(--text-muted);
+}
+
+.move-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.move-buttons button {
+  min-width: 3rem;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 900px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
 }

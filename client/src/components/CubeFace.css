@@ -4,9 +4,28 @@
   gap: 2rem;
 }
 
+.cube-net {
+  display: grid;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.face-white,
+.face-yellow {
+  display: flex;
+  justify-content: center;
+}
+
+.middle-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .cube-face {
   display: grid;
-  grid-template-columns: repeat(3, 48px);
+  grid-template-columns: repeat(3, 56px);
   gap: 4px;
 
   background: #111827;
@@ -15,8 +34,8 @@
 }
 
 .sticker {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
 
   border-radius: 6px;
   border: 1px solid #111827;
@@ -25,35 +44,38 @@
   align-items: center;
   justify-content: center;
 
-  font-size: 0.7rem;
+  font-size: 0;
   font-weight: bold;
 
-  color: rgba(255, 255, 255, 0.7);
+  transition: font-size 0.15s ease;
 }
 
-.sticker.w {
-  background: white;
+.sticker:hover {
+  font-size: 1rem;
 }
 
-.sticker.y {
-  background: yellow;
+.sticker.w:hover,
+.sticker.y:hover {
+  color: #111827;
 }
 
-.sticker.g {
-  background: green;
-  color: white;
+.sticker.g:hover,
+.sticker.b:hover,
+.sticker.r:hover,
+.sticker.o:hover {
+  color: rgba(255, 255, 255, 0.85);
 }
 
-.sticker.b {
-  background: blue;
-  color: white;
+.cube-face-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.sticker.r {
-  background: red;
-  color: white;
-}
-
-.sticker.o {
-  background: orange;
+.cube-face-wrapper h3 {
+  margin: 0;
+  text-transform: capitalize;
+  font-size: 0.9rem;
+  color: var(--text-muted);
 }

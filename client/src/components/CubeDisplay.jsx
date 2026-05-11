@@ -1,17 +1,43 @@
 import CubeFace from './CubeFace';
 
-const faceOrder = ['white', 'orange', 'green', 'red', 'blue', 'yellow'];
-
 function CubeDisplay({ cube }) {
   return (
-    <div className="cube-layout">
-      {faceOrder.map((faceName) => (
+    <div className="cube-net">
+      <div className="face-white">
         <CubeFace
-          key={faceName}
-          faceName={faceName}
-          stickers={cube[faceName]}
+          faceName="white"
+          stickers={cube.white}
         />
-      ))}
+      </div>
+
+      <div className="middle-row">
+        <CubeFace
+          faceName="orange"
+          stickers={cube.orange}
+        />
+
+        <CubeFace
+          faceName="green"
+          stickers={cube.green}
+        />
+
+        <CubeFace
+          faceName="red"
+          stickers={cube.red}
+        />
+
+        <CubeFace
+          faceName="blue"
+          stickers={cube.blue}
+        />
+      </div>
+
+      <div className="face-yellow">
+        <CubeFace
+          faceName="yellow"
+          stickers={cube.yellow}
+        />
+      </div>
     </div>
   );
 }

@@ -100,23 +100,23 @@ function App() {
     <main className="app">
       <h1>Rubik Fullstack</h1>
 
-      <section className="top-panel">
-        <CubeDisplay cube={cube} />
-      </section>
+      <div className="dashboard">
+        <section className="cube-panel">
+          <CubeDisplay cube={cube} />
+        </section>
 
-      <section className="controls-panel">
-        <MoveControls onMove={handleMove} />
+        <aside className="sidebar-panel">
+          <MoveControls onMove={handleMove} />
 
-        <CubeActions
-          onReset={handleReset}
-          onScramble={handleScramble}
-          onUndo={handleUndo}
-        />
-      </section>
+          <CubeActions
+            onReset={handleReset}
+            onScramble={handleScramble}
+            onUndo={handleUndo}
+          />
 
-      <section className="history-panel">
-        <MoveHistory history={history} />
-      </section>
+          <MoveHistory history={history} />
+        </aside>
+      </div>
     </main>
   );
 }
