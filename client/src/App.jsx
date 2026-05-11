@@ -4,12 +4,23 @@ import CubeFace from './components/CubeFace';
 
 function App() {
   const [cube, setCube] = useState(null);
+  const [history, setHistory] = useState([]);
+
+  // Refresh history function
+  function refreshHistory() {
+    fetch('http://localhost:3001/api/cube/history')
+      .then((response) => response.json())
+      .then((data) => setHistory(data))
+      .catch((err) => console.error('Failed to fetch history:', err));
+  }
 
   useEffect(() => {
     fetch('http://localhost:3001/api/cube')
       .then((response) => response.json())
       .then((data) => setCube(data))
       .catch((err) => console.error('Failed to fetch cube:', err));
+
+    refreshHistory();
   }, []);
 
   // Handle move function
@@ -27,7 +38,10 @@ function App() {
         }
         return response.json();
       })
-      .then((data) => setCube(data))
+      .then((data) => {
+        setCube(data);
+        refreshHistory();
+      })
       .catch((error) => {
         console.error(error);
         alert('Move not implemented yet');
@@ -40,7 +54,10 @@ function App() {
       method: 'POST',
     })
       .then((response) => response.json())
-      .then((data) => setCube(data))
+      .then((data) => {
+        setCube(data);
+        refreshHistory();
+      })
       .catch((error) => console.error('Reset failed:', error));
   }
 
@@ -50,7 +67,10 @@ function App() {
       method: 'POST',
     })
       .then((response) => response.json())
-      .then((data) => setCube(data.cube))
+      .then((data) => {
+        setCube(data.cube);
+        refreshHistory();
+      })
       .catch((error) => console.error('Scramble failed:', error));
   }
 
@@ -60,7 +80,10 @@ function App() {
       method: 'POST',
     })
       .then((response) => response.json())
-      .then((data) => setCube(data))
+      .then((data) => {
+        setCube(data);
+        refreshHistory();
+      })
       .catch((error) => console.error('Undo failed:', error));
   }
 
@@ -126,6 +149,22 @@ function App() {
       <button onClick={handleReset}>Reset Cube</button>
       <button onClick={handleScramble}>Scramble Cube</button>
       <button onClick={handleUndo}>Undo last move</button>
+
+      <section>
+        <h2>Move History</h2>
+
+        {history.length === 0 ? (
+          <p>No moves yet.</p>
+        ) : (
+          <ol>
+            {history.map((move) => (
+              <li key={move.id}>
+                {move.face} {move.direction} ({move.move_type})
+              </li>
+            ))}
+          </ol>
+        )}
+      </section>
     </main>
   );
 }
