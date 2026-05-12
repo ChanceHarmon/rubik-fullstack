@@ -1,0 +1,15 @@
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.action-button {
+  min-width: 120px;
+  min-height: 56px;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  border-radius: 12px;
+}

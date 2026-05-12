@@ -10,7 +10,7 @@
 
 .dashboard {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 320px;
+  grid-template-columns: minmax(0, 1fr) 420px;
   gap: 1.5rem;
   align-items: start;
 }
@@ -31,13 +31,19 @@
 .sidebar-panel {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
-.sidebar-panel section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+.move-history-row {
+  display: grid;
+  grid-template-columns: auto 100px;
+  column-gap: 2rem;
+  align-items: start;
+}
+
+.controls-column,
+.history-column {
+  min-width: 0;
 }
 
 button {
@@ -50,29 +56,6 @@ button {
 
 button:hover {
   background: #374151;
-}
-
-.move-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.move-row span {
-  min-width: 5rem;
-  text-transform: capitalize;
-  color: var(--text-muted);
-}
-
-.move-buttons {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.move-buttons button {
-  min-width: 3rem;
-  font-size: 1.1rem;
 }
 
 @media (max-width: 900px) {

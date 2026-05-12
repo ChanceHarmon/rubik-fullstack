@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import CubeDisplay from './components/CubeDisplay';
-import MoveControls from './components/MoveControls';
-import CubeActions from './components/CubeActions';
-import MoveHistory from './components/MoveHistory';
+import CubeDisplay from './components/CubeDisplay/CubeDisplay';
+import MoveControls from './components/MoveControls/MoveControls';
+import CubeActions from './components/CubeActions/CubeActions';
+import MoveHistory from './components/MoveHistory/MoveHistory';
 
 
 function App() {
@@ -106,15 +106,21 @@ function App() {
         </section>
 
         <aside className="sidebar-panel">
-          <MoveControls onMove={handleMove} />
+          <div className="move-history-row">
+            <div className="controls-column">
+              <MoveControls onMove={handleMove} />
+            </div>
+
+            <div className="history-column">
+              <MoveHistory history={history} />
+            </div>
+          </div>
 
           <CubeActions
             onReset={handleReset}
             onScramble={handleScramble}
             onUndo={handleUndo}
           />
-
-          <MoveHistory history={history} />
         </aside>
       </div>
     </main>

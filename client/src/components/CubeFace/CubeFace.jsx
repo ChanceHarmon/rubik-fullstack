@@ -2,16 +2,16 @@ import './CubeFace.css'
 
 function getColor(value) {
   const colorCode = value[0]
-  const map = {
-    w: 'white',
-    y: 'yellow',
-    g: 'green',
-    b: 'blue',
-    r: 'red',
-    o: 'orange',
+  const faceColors = {
+    w: '#f9fafb',
+    y: '#facc15',
+    g: '#22c55e',
+    b: '#3b82f6',
+    r: '#ef4444',
+    o: '#f97316',
   };
 
-  return map[colorCode] || 'gray';
+  return faceColors[colorCode] || 'gray';
 }
 
 function CubeFace({ faceName, stickers }) {

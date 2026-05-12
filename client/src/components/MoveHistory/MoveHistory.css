@@ -1,0 +1,55 @@
+.move-history {
+  display: flex;
+  flex-direction: column;
+}
+
+.history-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  margin-bottom: 0.75rem;
+}
+
+.history-header h2 {
+  margin: 0;
+}
+
+.history-header span {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.history-item {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.history-chip {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+
+  font-size: 1.1rem;
+  font-weight: bold;
+}

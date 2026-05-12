@@ -1,4 +1,4 @@
-import CubeFace from './CubeFace';
+import CubeFace from '../CubeFace/CubeFace';
 
 function CubeDisplay({ cube }) {
   return (
